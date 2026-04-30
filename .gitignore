@@ -1,0 +1,13 @@
+# Built / staged release artifacts (regeneratable from /build + zip script)
+release/
+
+# CDMA-fixed vendor partition (regeneratable per project_cdma_ril_crash.md)
+vendor_fix/*.img
+
+# Historical launcher APK — no longer source of truth.
+# Live launcher tracks ~/Desktop/rabbitR1Luncher/.../app-debug.apk via symlink in
+# ~/lineage/device/rabbit/r1/prebuilt/app/R1Launcher/R1Launcher.apk
+app-debug.apk
+
+# slim_lineage.sh's backup-on-first-run dir
+.slim_backup/
