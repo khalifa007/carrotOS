@@ -308,6 +308,24 @@ perl -0777 -i -pe '
   print STDERR "    E2eeContactKeysProvider: ", ($c?"removed":"already gone"), "\n";
 ' build/make/target/product/base_system.mk
 
+# ---------------------------------------------------------------------------
+# Tier 6: kiosk-irrelevant priv-app
+#   - StatementService: validates Android App Links (intent-filter
+#     android:autoVerify="true" → fetches /.well-known/assetlinks.json from
+#     declared hosts to confirm intent-handler trust). With no browser shipped
+#     and the launcher owning all in-app navigation, App Links never fire and
+#     this service is dead code (~12 MB PSS, 1.8 MB on /system).
+#   APEX-backed candidates (rkpd, devicelock, healthconnect) are NOT slimmed
+#   here — removing the APEXs would break framework classpaths. They are
+#   `pm disable`d at boot via device/rabbit/r1/rootdir/system/etc/init/r1_kiosk.rc
+#   instead, which reclaims their RAM without breaking imports.
+# ---------------------------------------------------------------------------
+echo "=> Tier 6: media_system.mk StatementService"
+perl -0777 -i -pe '
+  $c = s|^    StatementService \\\n||m;
+  print STDERR "    StatementService: ", ($c?"removed":"already gone"), "\n";
+' build/make/target/product/media_system.mk
+
 echo "=> frameworks/base/data/sounds/AllAudio.mk (nuke notification + ui oggs)"
 perl -0777 -i -pe '
   for my $dir (qw(notifications ui)) {
