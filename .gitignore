@@ -1,16 +1,32 @@
-# Built / staged release artifacts (regeneratable from /build + zip script)
+# Public repo is user-facing only (flash README + Releases).
+# All build harness + dev artifacts stay local.
+
+# Build / release outputs
 release/
+out/
 
-# CDMA-fixed vendor partition (regeneratable per project_cdma_ril_crash.md)
-vendor_fix/*.img
+# Build harness scripts
+setup_lineage.sh
+setup_cipheros.sh
+slim_lineage.sh
+verify_lineage_state.sh
+catch_fastboot.sh
 
-# Historical launcher APK — no longer source of truth.
-# Live launcher tracks ~/Desktop/rabbitR1Luncher/.../app-debug.apk via symlink in
-# ~/lineage/device/rabbit/r1/prebuilt/app/R1Launcher/R1Launcher.apk
+# Dev / internal docs
+CLAUDE.md
+claude.md
+build.md
+.claude/
+
+# Build artifacts shipped inside the release zip
+vbmeta.img
+vbmeta.img.*
+carrotos.png
+vendor_fix/
+
+# Launcher prebuilt
 app-debug.apk
 
-# slim_lineage.sh's backup-on-first-run dir
+# Backups + screen captures
 .slim_backup/
-
-# Ad-hoc screen captures
 screen-*.png
