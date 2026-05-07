@@ -19,6 +19,10 @@ sudo ~/Android/Sdk/platform-tools/fastboot flash system ~/lineage/out/target/pro
 sudo ~/Android/Sdk/platform-tools/fastboot reboot
 ```
 
+
+screen shot : 
+adb exec-out screencap -p > /home/khalifa/Desktop/cipherOsCustom/screen-$(date +%H%M%S).png
+
 That's it. Userdata is preserved.
 
 > **Why the multi-line build command?** `mka` is a shell function defined by `envsetup.sh`, not a binary. A fresh terminal will say `Command 'mka' not found` until you source the env and `lunch` a target. Always run all four (`cd` → `source` → `lunch` → `mka`) in the same shell.

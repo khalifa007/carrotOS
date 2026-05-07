@@ -11,3 +11,6 @@ app-debug.apk
 
 # slim_lineage.sh's backup-on-first-run dir
 .slim_backup/
+
+# Ad-hoc screen captures
+screen-*.png
