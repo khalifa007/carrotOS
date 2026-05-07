@@ -39,7 +39,7 @@ This is the **build harness** — the scripts and configuration used to produce 
 | `build.md` | Focused build/flash/iterate runbook for AFTER the harness has set up the tree. |
 | `.claude/commands/` | Slash commands (`/build`, `/flash`, `/post-sync`, `/verify-img`, `/diagnose-boot`) wired into Claude Code. |
 
-The launcher source lives in a separate repo (TBD).
+The launcher source lives in a separate repo: **[khalifa007/rabbitR1Luncher](https://github.com/khalifa007/rabbitR1Luncher)** — Compose-based, package `com.r1.launcher`. The build harness symlinks its release APK into `~/lineage/device/rabbit/r1/prebuilt/app/R1Launcher/R1Launcher.apk`, so a Gradle release build flows into the next `mka systemimage` automatically.
 
 ---
 
