@@ -59,6 +59,14 @@ When you see the **carrot logo**, you're booting CarrotOS. Cold boot is ~20 seco
 
 ---
 
+## Stuck device? (Linux only)
+
+If the web flasher won't connect — for example, the BROM/Preloader window closes faster than you can click — download `catch_fastboot.sh` from the [Release page](../../releases/latest) and run it. It polls USB at 50 ms and drives the device into fastboot automatically.
+
+Prerequisite: [mtkclient](https://github.com/bkerler/mtkclient) cloned at `~/mtkclient` with its Python deps installed (the script tells you the exact commands if it's missing).
+
+---
+
 ## Recovery
 
 To go back to stock Rabbit OS at any time:
