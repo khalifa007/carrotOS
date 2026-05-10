@@ -6,6 +6,14 @@ A custom Android 14 ROM for the **Rabbit R1**, with a single-app kiosk launcher 
 
 [![launcher: rabbitR1Luncher](https://img.shields.io/badge/launcher-rabbitR1Luncher-FF6A00?style=flat-square&logo=android&logoColor=white)](https://github.com/khalifa007/rabbitR1Luncher)
 
+<p align="center">
+  <a href="https://khalifa007.github.io/carrotOS/">
+    <img src="https://img.shields.io/badge/%E2%9A%A1%20flash%20your%20R1-FF6A00?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Flash your R1 in your browser">
+  </a>
+  <br>
+  <sub>flashes from chrome / edge / brave — no install needed</sub>
+</p>
+
 ---
 
 ## Demo
