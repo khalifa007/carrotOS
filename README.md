@@ -8,6 +8,14 @@ A custom Android 14 ROM for the **Rabbit R1**, with a single-app kiosk launcher 
 
 ---
 
+## Demo
+
+<p align="center">
+  <video src="https://github.com/khalifa007/carrotOS/raw/main/screenshots/r1-20260511-013639.mp4" controls preload="metadata" width="360"></video>
+</p>
+
+> If the player doesn't load, [watch the demo here](https://github.com/khalifa007/carrotOS/raw/main/screenshots/r1-20260511-013639.mp4).
+
 ## Screenshots
 
 | | | |
