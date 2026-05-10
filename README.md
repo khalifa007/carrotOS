@@ -4,6 +4,19 @@ A custom Android 14 ROM for the **Rabbit R1**, with a single-app kiosk launcher 
 
 > Built by **khalifa007**.
 
+[![launcher: rabbitR1Luncher](https://img.shields.io/badge/launcher-rabbitR1Luncher-FF6A00?style=flat-square&logo=android&logoColor=white)](https://github.com/khalifa007/rabbitR1Luncher)
+
+---
+
+## Screenshots
+
+| | | |
+|:---:|:---:|:---:|
+| ![Home](screenshots/r1-20260511-011116.png) | ![App drawer](screenshots/r1-20260511-012358.png) | ![Settings](screenshots/r1-20260511-012413.png) |
+| home / clock | app drawer | settings |
+| ![OpenClaw](screenshots/r1-20260511-012438.png) | ![Sessions](screenshots/r1-20260511-012446.png) | ![Snap & ask](screenshots/r1-20260511-012537.png) |
+| openclaw chat | thread browser | snap & ask camera |
+
 ---
 
 ## Download
@@ -15,17 +28,35 @@ Get the latest flashable zip from **[Releases](../../releases/latest)**.
 ## What you need
 
 1. A **Rabbit R1** with stock Rabbit OS already installed.
-2. **Android platform-tools** (so `fastboot` and `adb` are in your `PATH`) — <https://developer.android.com/studio/releases/platform-tools>
-3. A **Chromium-based browser** (Chrome / Edge / Brave) for the one-time fastboot entry. Firefox doesn't support WebUSB.
-4. A USB-C cable (the one you charge with).
+2. A **Chromium-based browser** (Chrome / Edge / Brave). Firefox doesn't support WebUSB.
+3. A USB-C cable (the one you charge with).
+4. Only for the script path: **Android platform-tools** (so `fastboot` and `adb` are in your `PATH`) — <https://developer.android.com/studio/releases/platform-tools>. The web flasher does not need this.
 
 ---
 
 ## How to flash
 
-### 1. Boot your R1 into fastboot
+Two ways. Pick whichever you prefer — both produce the same result.
 
-Stock Rabbit OS has no Developer Options and no adb, so the only way to enter fastboot from a stock device is the official web flasher:
+### Option A — Web flasher (recommended, no install)
+
+The easiest path. Everything happens in your browser; no platform-tools, no terminal.
+
+1. Download and unzip the latest release from **[Releases](../../releases/latest)**.
+2. Open **<https://khalifa007.github.io/carrotOS/>** in Chrome / Edge / Brave.
+3. Follow the on-screen steps:
+   - **00 hello** — unlock your R1's bootloader from rabbithole (one-time, link is on the page).
+   - **01 images** — drop in `system.img`, `vbmeta.img`, and `vendor.img` from the unzipped release.
+   - **02 connect** — plug in the R1, get it into fastboot, click Connect, authorize WebUSB.
+   - **03 → 05** — confirm settings, hit flash, wait for the carrot.
+
+Total time: ~2 minutes once unlocked.
+
+### Option B — Script
+
+For people who already have `fastboot` installed and prefer a CLI.
+
+**1. Boot your R1 into fastboot.** Stock Rabbit OS has no Developer Options and no adb, so the only way to enter fastboot from a stock device is the official web flasher:
 
 1. Open <https://rabbit-hmi-oss.github.io/flashing/> in Chrome / Edge / Brave.
 2. Click **Connect**, select your R1.
@@ -39,9 +70,7 @@ fastboot devices
 
 You should see one device listed.
 
-### 2. Run the flasher
-
-Download and unzip the latest release, then:
+**2. Run the flasher.** Download and unzip the latest release, then:
 
 **Linux / macOS:**
 ```
@@ -53,7 +82,7 @@ chmod +x flash.sh
 
 The script unlocks the bootloader (auto, no prompt), wipes userdata, and flashes `vbmeta`, `vendor`, and `system`. Total time: ~2 minutes.
 
-### 3. First boot
+### First boot
 
 When you see the **carrot logo**, you're booting CarrotOS. Cold boot is ~20 seconds.
 
