@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0A0A0C">
+    <title>carrot // flasher</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+    <div class="brand">
+        <span class="brand-mark">carrot</span>
+        <span class="brand-divider">//</span>
+        <span class="brand-text">flasher</span>
+    </div>
+    <div class="topbar-meta">
+        <span class="pill" id="conn-pill">disconnected</span>
+        <a class="pill" href="https://github.com/khalifa007/carrotOS" target="_blank" rel="noopener">github ↗</a>
+    </div>
+</header>
+
+<div id="browser-warning" class="banner" hidden>
+    <span id="browser-warning-text">webusb unavailable.</span>
+</div>
+
+<main class="stage">
+
+    <nav class="stepper" aria-label="progress">
+        <span class="step-pill is-active" data-step="0"><span class="num">00</span> hello</span>
+        <span class="step-pill" data-step="1"><span class="num">01</span> images</span>
+        <span class="step-pill" data-step="2"><span class="num">02</span> connect</span>
+        <span class="step-pill" data-step="3"><span class="num">03</span> configure</span>
+        <span class="step-pill" data-step="4"><span class="num">04</span> flash</span>
+        <span class="step-pill" data-step="5"><span class="num">05</span> done</span>
+    </nav>
+
+    <!-- STEP 0 — HELLO -->
+    <section class="step is-active" data-step="0">
+        <div class="hero">
+            <div class="hero-clock">flash <span class="accent">carrotos</span></div>
+            <div class="hero-tag">to your rabbit r1</div>
+        </div>
+
+        <div class="hero-grid">
+            <div class="hero-card">
+                <div class="hero-card-glyph">◉</div>
+                <div class="hero-card-label">local only</div>
+                <div class="hero-card-sub">webusb. no upload.</div>
+            </div>
+            <div class="hero-card">
+                <div class="hero-card-glyph">▶</div>
+                <div class="hero-card-label">5 min</div>
+                <div class="hero-card-sub">three image files</div>
+            </div>
+            <div class="hero-card">
+                <div class="hero-card-glyph">⌬</div>
+                <div class="hero-card-label">chrome only</div>
+                <div class="hero-card-sub">webusb requirement</div>
+            </div>
+        </div>
+
+        <section class="prereq">
+            <div class="prereq-head">
+                <span class="prereq-tag">before you start</span>
+                <span class="prereq-title">unlock the r1 bootloader</span>
+            </div>
+            <p class="prereq-sub">
+                shipped r1s are locked. you must unlock from rabbithole before any
+                flash will succeed. <strong>this voids your warranty.</strong> rabbit
+                support will not help you re-lock or recover.
+            </p>
+            <p class="prereq-risk">
+                <strong>flashing is at your own risk.</strong> carrotos and this flasher
+                are community work — if your r1 bricks, won't boot, or loses cellular
+                after flashing, we can't recover it for you. proceed only if you accept
+                that.
+            </p>
+            <ol class="prereq-list">
+                <li>
+                    <span class="n">i</span>
+                    <span>
+                        sign in to <a class="link" href="https://hole.rabbit.tech/" target="_blank" rel="noopener">hole.rabbit.tech ↗</a>
+                        — your r1 must be powered on + online for it to register.
+                    </span>
+                </li>
+                <li>
+                    <span class="n">ii</span>
+                    <span>
+                        <strong>settings → developer</strong>. type the warranty acknowledgment,
+                        enter your imei (r1 → settings → about), tap
+                        <em>void warranty and enable developer mode</em>.
+                    </span>
+                </li>
+                <li>
+                    <span class="n">iii</span>
+                    <span>
+                        same page · <strong>device modification → unlock</strong>. this
+                        authorizes the next fastboot unlock on rabbit's side.
+                    </span>
+                </li>
+                <li>
+                    <span class="n">iv</span>
+                    <span>
+                        run rabbit's flash tool at
+                        <a class="link" href="https://rabbit-hmi-oss.github.io/flashing/" target="_blank" rel="noopener">rabbit-hmi-oss.github.io/flashing ↗</a>
+                        — it gets the r1 into fastboot and pushes
+                        <code>fastboot flashing unlock</code> for you.
+                    </span>
+                </li>
+                <li>
+                    <span class="n">v</span>
+                    <span>
+                        bootloader is now unlocked. come back here. continue with
+                        <strong>begin</strong> below.
+                    </span>
+                </li>
+            </ol>
+            <p class="prereq-note">already unlocked from a previous attempt? skip this and click begin.</p>
+        </section>
+
+        <div class="hero-cta">
+            <button class="primary-btn" data-action="advance">begin</button>
+            <button class="ghost-btn" data-action="jump-flash">skip to images</button>
+        </div>
+    </section>
+
+    <!-- STEP 1 — IMAGES -->
+    <section class="step" data-step="1">
+        <div class="step-head">
+            <h1 class="step-title"><span class="num">01</span>images</h1>
+            <p class="step-sub">drop or pick the partition images. system is required.</p>
+        </div>
+
+        <div class="drop-grid">
+            <label class="dropzone" data-slot="system">
+                <input type="file" accept=".img" hidden>
+                <span class="dz-tag">required</span>
+                <span class="dz-name">system.img</span>
+                <span class="dz-hint">~1.7 gb · the gsi</span>
+                <span class="dz-loaded">
+                    <span class="dz-file"></span>
+                    <span class="dz-hash"></span>
+                </span>
+            </label>
+            <label class="dropzone" data-slot="vbmeta">
+                <input type="file" accept=".img" hidden>
+                <span class="dz-tag">required</span>
+                <span class="dz-name">vbmeta.img</span>
+                <span class="dz-hint">4 kb · disables avb · needed when coming from stock</span>
+                <span class="dz-loaded">
+                    <span class="dz-file"></span>
+                    <span class="dz-hash"></span>
+                </span>
+            </label>
+            <label class="dropzone" data-slot="vendor">
+                <input type="file" accept=".img" hidden>
+                <span class="dz-tag">required</span>
+                <span class="dz-name">vendor.img</span>
+                <span class="dz-hint">~338 mb · cdma ril fix · stops cellular crashloop on wipe</span>
+                <span class="dz-loaded">
+                    <span class="dz-file"></span>
+                    <span class="dz-hash"></span>
+                </span>
+            </label>
+        </div>
+
+        <div class="step-foot">
+            <button class="ghost-btn" data-action="back">back</button>
+            <button class="primary-btn" data-action="advance" disabled>continue</button>
+        </div>
+    </section>
+
+    <!-- STEP 2 — CONNECT -->
+    <section class="step" data-step="2">
+        <div class="step-head">
+            <h1 class="step-title"><span class="num">02</span>connect</h1>
+            <p class="step-sub">get the r1 into fastboot, then authorize over webusb.</p>
+        </div>
+
+        <div class="path-grid">
+            <article class="path-card">
+                <div class="path-title">device boots</div>
+                <div class="path-sub">already on carrotos or adb on</div>
+                <ol>
+                    <li><code>adb reboot fastboot</code></li>
+                    <li>wait ~15-25s for re-enumerate</li>
+                </ol>
+            </article>
+            <article class="path-card alt">
+                <div class="path-title">stuck on stock</div>
+                <div class="path-sub">rabbitos has adb disabled</div>
+                <div class="stuck">
+                    <details>
+                        <summary>show recovery</summary>
+                        <div class="stuck-body">
+                            linux/macos:
+                            <pre>chmod +x catch_fastboot.sh
+./catch_fastboot.sh</pre>
+                            with device off, hold side button + plug usb in. the script catches mtk brom and hands off to fastboot.
+                            <br><br>
+                            <a class="link" href="scripts/catch_fastboot.sh" download>download catch_fastboot.sh</a>
+                            <br>
+                            no terminal? use <a class="link" href="https://rabbit-hmi-oss.github.io/flashing/" target="_blank" rel="noopener">rabbit-hmi-oss ↗</a> for the brom hop only.
+                        </div>
+                    </details>
+                </div>
+            </article>
+        </div>
+
+        <button class="connect-card" id="connect-card" data-action="connect-device">
+            <div class="connect-state">
+                <span class="dot pulsing" id="connect-dot"></span>
+                <span>
+                    <span class="connect-label" id="connect-label">authorize r1 over webusb</span>
+                    <br>
+                    <span class="connect-sub" id="connect-sub">browser will prompt</span>
+                </span>
+            </div>
+            <span class="primary-btn" style="pointer-events:none">connect</span>
+        </button>
+
+        <div class="step-foot">
+            <button class="ghost-btn" data-action="back">back</button>
+            <button class="primary-btn" data-action="advance" disabled id="continue-after-connect">continue</button>
+        </div>
+    </section>
+
+    <!-- STEP 3 — CONFIGURE -->
+    <section class="step" data-step="3">
+        <div class="step-head">
+            <h1 class="step-title"><span class="num">03</span>configure</h1>
+            <p class="step-sub">defaults are sensible.</p>
+        </div>
+
+        <div class="toggle-grid">
+            <label class="toggle-card">
+                <span class="toggle-text">
+                    <span class="toggle-name">flash vbmeta</span>
+                    <span class="toggle-desc">disable avb hashtree + verify</span>
+                </span>
+                <span class="switch"><input type="checkbox" data-opt="vbmeta" checked><span class="slider"></span></span>
+            </label>
+            <label class="toggle-card">
+                <span class="toggle-text">
+                    <span class="toggle-name">flash vendor</span>
+                    <span class="toggle-desc">cdma ril fix · only if cellular crashloops</span>
+                </span>
+                <span class="switch"><input type="checkbox" data-opt="vendor" checked><span class="slider"></span></span>
+            </label>
+            <label class="toggle-card">
+                <span class="toggle-text">
+                    <span class="toggle-name">wipe userdata</span>
+                    <span class="toggle-desc">recommended on system swap · adds bootloader trip</span>
+                </span>
+                <span class="switch"><input type="checkbox" data-opt="wipe"><span class="slider"></span></span>
+            </label>
+            <label class="toggle-card">
+                <span class="toggle-text">
+                    <span class="toggle-name">reboot when done</span>
+                    <span class="toggle-desc">auto-boot to the new system</span>
+                </span>
+                <span class="switch"><input type="checkbox" data-opt="reboot" checked><span class="slider"></span></span>
+            </label>
+        </div>
+
+        <div class="plan-card">
+            <div class="plan-head">flash plan</div>
+            <ol class="plan-list" id="plan-list"></ol>
+        </div>
+
+        <div class="step-foot">
+            <button class="ghost-btn" data-action="back">back</button>
+            <button class="danger-btn" data-action="start-flash">start flash</button>
+        </div>
+    </section>
+
+    <!-- STEP 4 — FLASH -->
+    <section class="step" data-step="4">
+        <div class="step-head">
+            <h1 class="step-title"><span class="num">04</span>flashing</h1>
+            <p class="step-sub">don't unplug. r1 reboots when done.</p>
+        </div>
+
+        <div class="flash-grid">
+            <div class="bars" id="bars"></div>
+            <div class="log-card">
+                <div class="log-head">
+                    <span>fastboot · live</span>
+                    <button class="log-copy" data-action="copy-log">copy</button>
+                </div>
+                <pre class="log-pane" id="log" aria-live="polite"></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 5 — DONE -->
+    <section class="step" data-step="5">
+        <div class="step-head">
+            <h1 class="step-title"><span class="num">05</span><span id="done-title">done</span></h1>
+            <p class="step-sub" id="done-sub">first boot ~30s. dexopt ~3min after.</p>
+        </div>
+
+        <div class="done-card" id="done-card">
+            <div class="done-glyph" id="done-glyph">✓</div>
+            <ol class="done-list">
+                <li><span class="step-i">i</span><span>black screen with carrot bootanim · 15-30s</span></li>
+                <li><span class="step-i">ii</span><span>"carrotos · by khalifa007" splash</span></li>
+                <li><span class="step-i">iii</span><span>r1launcher takes over</span></li>
+                <li><span class="step-i">iv</span><span>~3 min before opening apps · system_server is dexopting</span></li>
+            </ol>
+
+            <details class="trouble">
+                <summary>flash failed or boot looping?</summary>
+                <ul>
+                    <li>"transferin" / "transfer error" on linux · <code>sudo systemctl stop ModemManager</code> then retry. it's grabbing the usb endpoint mid-flash.</li>
+                    <li>"operation that changes the device state is in progress" · stale webusb handle from a previous attempt. fully close this tab (not refresh), unplug + replug the r1, open a fresh tab.</li>
+                    <li>"device is locked" · finish the rabbithole unlock first (hello → before you start)</li>
+                    <li>stuck &gt;2min on boot · re-flash with wipe userdata</li>
+                    <li>"corrupted os" message · flash vbmeta (flags=3)</li>
+                    <li>no signal / cellular crashloop · flash patched vendor.img</li>
+                    <li>bail out · re-flash stock via rabbit-hmi-oss</li>
+                </ul>
+            </details>
+        </div>
+
+        <div class="step-foot">
+            <span></span>
+            <button class="ghost-btn" data-action="restart">flash another</button>
+        </div>
+    </section>
+
+</main>
+
+<footer class="pagefoot">
+    <span>carrot // flasher · v1 · local · mit</span>
+    <span>by <a href="https://github.com/khalifa007/carrotOS" target="_blank" rel="noopener">khalifa007</a></span>
+</footer>
+
+<script type="module" src="app.js"></script>
+
+</body>
+</html>
